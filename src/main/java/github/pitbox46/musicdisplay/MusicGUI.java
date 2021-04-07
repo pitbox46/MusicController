@@ -7,6 +7,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.IngameGui;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.Util;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -37,8 +39,9 @@ public class MusicGUI extends IngameGui implements ISoundEventListener {
         String musicString = currentMusic == null ? "None" : currentMusic.getSound().getSoundAsOggLocation().toString();
         String recordString = currentRecord == null ? "None" : currentRecord.getSound().getSoundAsOggLocation().toString();
 
-        getFontRenderer().drawString(event.getMatrixStack(), "Current Track: " + musicString, 5, 5, 0);
-        getFontRenderer().drawString(event.getMatrixStack(), "Current Record: " + recordString, 5, 15, 0);
+        TranslationTextComponent nowPlaying = new TranslationTextComponent("gui.musicdisplay.nowplaying");
+        getFontRenderer().drawText(event.getMatrixStack(), nowPlaying.appendSibling(new TranslationTextComponent(musicString)), 5, 5, 0);
+        getFontRenderer().drawText(event.getMatrixStack(), nowPlaying.copyRaw().appendSibling(new TranslationTextComponent(recordString)), 5, 15, 0);
     }
 
     @Override
