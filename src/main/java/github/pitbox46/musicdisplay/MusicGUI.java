@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
 import net.minecraft.client.gui.IngameGui;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,8 +17,8 @@ import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class MusicGUI extends IngameGui implements ISoundEventListener {
+    private long lastLogicUpdate = 0;
     private ISound currentMusic;
-    private Map<BlockPos, ISound> previousRecords = new HashMap<>();
     private Map<BlockPos, ISound> currentRecords = new HashMap<>();
     private ISound closestRecord;
 
@@ -30,31 +31,33 @@ public class MusicGUI extends IngameGui implements ISoundEventListener {
         if(event == null || event.getMatrixStack() == null) return;
         Minecraft.getInstance().getSoundHandler().addListener(this);
 
-        if(!Minecraft.getInstance().getSoundHandler().isPlaying(currentMusic)) currentMusic = null;
+        /* Logic */
+        if (!Minecraft.getInstance().getSoundHandler().isPlaying(currentMusic)) currentMusic = null;
 
-        for(BlockPos pos: currentRecords.keySet()){
-            ISound sound = currentRecords.get(pos);
+        Map<BlockPos, ISound> tempMap = new HashMap<>(currentRecords);
+        for (BlockPos pos : currentRecords.keySet()) {
+            ISound sound = tempMap.get(pos);
             if (!Minecraft.getInstance().getSoundHandler().isPlaying(sound)) {
-                previousRecords.remove(pos);
+                tempMap.remove(pos);
                 continue;
             }
             double distanceSq = distanceToPlayer(pos);
-            if(closestRecord == null || (distanceSq < sound.getSound().getAttenuationDistance() && distanceSq < distanceToPlayer(soundPosition(closestRecord)))) {
-                closestRecord = currentRecords.get(pos);
-            }
+            if (closestRecord == null || (distanceSq < sound.getSound().getAttenuationDistance() && distanceSq < distanceToPlayer(soundPosition(closestRecord))))
+                closestRecord = tempMap.get(pos);
         }
-        currentRecords = previousRecords;
-        if(closestRecord == null);
-        else if(currentRecords.isEmpty() || distanceToPlayer(soundPosition(closestRecord)) > closestRecord.getSound().getAttenuationDistance()) closestRecord = null;
+        currentRecords = tempMap;
+        if (closestRecord == null);
+        else if (currentRecords.isEmpty() || distanceToPlayer(soundPosition(closestRecord)) > closestRecord.getSound().getAttenuationDistance())
+            closestRecord = null;
 
+        /* Rendering */
         String musicString = currentMusic == null ? "None" : currentMusic.getSound().getSoundAsOggLocation().toString();
         String recordString = closestRecord == null ? "None" : closestRecord.getSound().getSoundAsOggLocation().toString();
 
         TranslationTextComponent nowPlaying = new TranslationTextComponent("gui.musicdisplay.nowplaying");
         getFontRenderer().drawText(event.getMatrixStack(), nowPlaying.appendSibling(new TranslationTextComponent(musicString)), 5, event.getWindow().getScaledHeight() - 15, 0);
-        if(closestRecord != null) {
+        if(closestRecord != null)
             getFontRenderer().drawText(event.getMatrixStack(), nowPlaying.copyRaw().appendSibling(new TranslationTextComponent(recordString)), 5, event.getWindow().getScaledHeight() - 25, 0);
-        }
     }
 
     @Override
