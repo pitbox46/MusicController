@@ -1,8 +1,9 @@
 {
   "gui.musicdisplay.nowplaying": "Now playing: ",
+
   "minecraft:sounds/music/game/calm1.ogg": "C418 - Minecraft",
   "minecraft:sounds/music/game/calm2.ogg": "C418 - Clark",
-  "minecraft:sounds/music/game/calm3.ogg": "C418 - Sweeden",
+  "minecraft:sounds/music/game/calm3.ogg": "C418 - Sweden",
   "minecraft:sounds/music/game/creative/creative1.ogg": "C418 - Biome Fest",
   "minecraft:sounds/music/game/creative/creative2.ogg": "C418 - Blind Spots",
   "minecraft:sounds/music/game/creative/creative3.ogg": "C418 - Haunt Muskie",
@@ -29,7 +30,12 @@
   "minecraft:sounds/music/game/nether/nether4.ogg": "C418 - Ballad of the Cats",
 
   "minecraft:sounds/music/game/nether/nether_wastes/rubedo.ogg": "Lena Raine - Rubedo",
+  "minecraft:sounds/music/game/nether/crimson_forest/chrysopoeia.ogg": "Lena Raine - Chrysopoeia",
+  "minecraft/sounds/music/game/nether/soulsand_valley/so_below.ogg": "Lena Raine - So Below",
 
+  "minecraft/sounds/music/game/end/boss.ogg": "C418 - Boss",
+  "minecraft/sounds/music/game/end/credits.ogg": "C418 - Alpha",
+  "minecraft/sounds/music/game/end/end.ogg": "C418 - The End",
 
   "minecraft:sounds/records/13.ogg": "C418 - Thirteen",
   "minecraft:sounds/records/cat.ogg": "C418 - Cat",
@@ -44,4 +50,4 @@
   "minecraft:sounds/records/11.ogg": "C418 - Eleven",
   "minecraft:sounds/records/wait.ogg": "C418 - Wait",
   "minecraft:sounds/records/pigstep.ogg": "Lena Raine - Pigstep"
-},
+}
