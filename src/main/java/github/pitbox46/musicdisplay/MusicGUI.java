@@ -1,5 +1,6 @@
 package github.pitbox46.musicdisplay;
 
+import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
 import net.minecraft.client.gui.IngameGui;
@@ -27,6 +28,9 @@ public class MusicGUI extends IngameGui implements ISoundEventListener {
 
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent.Post event) {
+        GameSettings gameSettings = this.mc.gameSettings;
+        if(gameSettings.showDebugInfo || gameSettings.hideGUI) return;
+
         if(event == null || event.getMatrixStack() == null) return;
         Minecraft.getInstance().getSoundHandler().addListener(this);
 
