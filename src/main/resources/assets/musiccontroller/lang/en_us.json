@@ -1,5 +1,17 @@
 {
-  "gui.musicdisplay.nowplaying": "Now playing: ",
+  "key.musiccontroller.category": "Music Controller",
+  "key.musiccontroller.skip_track": "Skip To Next Track",
+  "key.musiccontroller.pause_track": "Toggle Pause Track",
+  "key.musiccontroller.toggle_music": "Toggle Background Music",
+
+  "gui.musiccontroller.musicoff": "Music is off",
+  "gui.musiccontroller.musicon": "Music is on",
+  "gui.musiccontroller.musicpaused": "Music is paused",
+  "gui.musiccontroller.nowplaying": "Now playing: ",
+
+  "minecraft/sounds/music/game/end/boss.ogg": "C418 - Boss",
+  "minecraft/sounds/music/game/end/credits.ogg": "C418 - Alpha",
+  "minecraft/sounds/music/game/end/end.ogg": "C418 - The End",
 
   "minecraft:sounds/music/game/calm1.ogg": "C418 - Minecraft",
   "minecraft:sounds/music/game/calm2.ogg": "C418 - Clark",
@@ -20,34 +32,29 @@
   "minecraft:sounds/music/game/piano2.ogg": "C418 - Wet Hands",
   "minecraft:sounds/music/game/piano3.ogg": "C418 - Mice on Venus",
 
-  "minecraft:sounds/music/game/water/axolotl.ogg": "C418 - Axolotl",
-  "minecraft:sounds/music/game/water/dragon_fish.ogg": "C418 - Dragon Fish",
-  "minecraft:sounds/music/game/water/shuniji.ogg": "C418 - Shuniji",
-
   "minecraft:sounds/music/game/nether/nether1.ogg": "C418 - Concrete Halls",
   "minecraft:sounds/music/game/nether/nether2.ogg": "C418 - Dead Voxel",
   "minecraft:sounds/music/game/nether/nether3.ogg": "C418 - Warmth",
   "minecraft:sounds/music/game/nether/nether4.ogg": "C418 - Ballad of the Cats",
-
+  "minecraft/sounds/music/game/nether/soulsand_valley/so_below.ogg": "Lena Raine - So Below",
   "minecraft:sounds/music/game/nether/nether_wastes/rubedo.ogg": "Lena Raine - Rubedo",
   "minecraft:sounds/music/game/nether/crimson_forest/chrysopoeia.ogg": "Lena Raine - Chrysopoeia",
-  "minecraft/sounds/music/game/nether/soulsand_valley/so_below.ogg": "Lena Raine - So Below",
 
-  "minecraft/sounds/music/game/end/boss.ogg": "C418 - Boss",
-  "minecraft/sounds/music/game/end/credits.ogg": "C418 - Alpha",
-  "minecraft/sounds/music/game/end/end.ogg": "C418 - The End",
+  "minecraft:sounds/music/game/water/axolotl.ogg": "C418 - Axolotl",
+  "minecraft:sounds/music/game/water/dragon_fish.ogg": "C418 - Dragon Fish",
+  "minecraft:sounds/music/game/water/shuniji.ogg": "C418 - Shuniji",
 
+  "minecraft:sounds/records/11.ogg": "C418 - Eleven",
   "minecraft:sounds/records/13.ogg": "C418 - Thirteen",
-  "minecraft:sounds/records/cat.ogg": "C418 - Cat",
+  "minecraft:sounds/records/Mall.ogg": "C418 - Mall",
   "minecraft:sounds/records/blocks.ogg": "C419 - Blocks",
+  "minecraft:sounds/records/cat.ogg": "C418 - Cat",
   "minecraft:sounds/records/chirp.ogg": "C418 - Chirp",
   "minecraft:sounds/records/far.ogg": "C418 - Far",
-  "minecraft:sounds/records/Mall.ogg": "C418 - Mall",
   "minecraft:sounds/records/mellohi.ogg": "C418 - Mellohi",
+  "minecraft:sounds/records/pigstep.ogg": "Lena Raine - Pigstep",
   "minecraft:sounds/records/stal.ogg": "C418 - Stal",
   "minecraft:sounds/records/strad.ogg": "C418 - Strad",
-  "minecraft:sounds/records/ward.ogg": "C418 - Ward",
-  "minecraft:sounds/records/11.ogg": "C418 - Eleven",
   "minecraft:sounds/records/wait.ogg": "C418 - Wait",
-  "minecraft:sounds/records/pigstep.ogg": "Lena Raine - Pigstep"
+  "minecraft:sounds/records/ward.ogg": "C418 - Ward"
 }
