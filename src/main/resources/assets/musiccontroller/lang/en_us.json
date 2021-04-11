@@ -9,9 +9,9 @@
   "gui.musiccontroller.musicpaused": "Music is paused",
   "gui.musiccontroller.nowplaying": "Now playing: ",
 
-  "minecraft/sounds/music/game/end/boss.ogg": "C418 - Boss",
-  "minecraft/sounds/music/game/end/credits.ogg": "C418 - Alpha",
-  "minecraft/sounds/music/game/end/end.ogg": "C418 - The End",
+  "minecraft:sounds/music/game/end/boss.ogg": "C418 - Boss",
+  "minecraft:sounds/music/game/end/credits.ogg": "C418 - Alpha",
+  "minecraft:sounds/music/game/end/end.ogg": "C418 - The End",
 
   "minecraft:sounds/music/game/calm1.ogg": "C418 - Minecraft",
   "minecraft:sounds/music/game/calm2.ogg": "C418 - Clark",
@@ -36,7 +36,7 @@
   "minecraft:sounds/music/game/nether/nether2.ogg": "C418 - Dead Voxel",
   "minecraft:sounds/music/game/nether/nether3.ogg": "C418 - Warmth",
   "minecraft:sounds/music/game/nether/nether4.ogg": "C418 - Ballad of the Cats",
-  "minecraft/sounds/music/game/nether/soulsand_valley/so_below.ogg": "Lena Raine - So Below",
+  "minecraft:sounds/music/game/nether/soulsand_valley/so_below.ogg": "Lena Raine - So Below",
   "minecraft:sounds/music/game/nether/nether_wastes/rubedo.ogg": "Lena Raine - Rubedo",
   "minecraft:sounds/music/game/nether/crimson_forest/chrysopoeia.ogg": "Lena Raine - Chrysopoeia",
 
