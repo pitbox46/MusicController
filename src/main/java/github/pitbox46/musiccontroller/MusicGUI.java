@@ -1,4 +1,4 @@
-package github.pitbox46.musicdisplay;
+package github.pitbox46.musiccontroller;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.GameSettings;

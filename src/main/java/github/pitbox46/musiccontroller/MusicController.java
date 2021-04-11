@@ -1,4 +1,4 @@
-package github.pitbox46.musicdisplay;
+package github.pitbox46.musiccontroller;
 
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.client.audio.BackgroundMusicTracks;
