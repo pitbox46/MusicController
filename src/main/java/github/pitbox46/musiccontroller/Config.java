@@ -56,11 +56,5 @@ public class Config {
 
         CLIENT_BUILDER.pop();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
-
-        BackgroundMusicTracks.MAIN_MENU_MUSIC = new BackgroundMusicSelector(SoundEvents.MUSIC_MENU, MENU_MUSIC_RANGE.get().get(0), MENU_MUSIC_RANGE.get().get(1), true);
-        BackgroundMusicTracks.CREATIVE_MODE_MUSIC = new BackgroundMusicSelector(SoundEvents.MUSIC_CREATIVE, CREATIVE_MUSIC_RANGE.get().get(0), CREATIVE_MUSIC_RANGE.get().get(1), false);
-        BackgroundMusicTracks.END_MUSIC = new BackgroundMusicSelector(SoundEvents.MUSIC_END, END_MUSIC_RANGE.get().get(0), END_MUSIC_RANGE.get().get(1), true);
-        BackgroundMusicTracks.UNDER_WATER_MUSIC = new BackgroundMusicSelector(SoundEvents.MUSIC_UNDER_WATER, UNDER_WATER_MUSIC_RANGE.get().get(0), UNDER_WATER_MUSIC_RANGE.get().get(1), false);
-        BackgroundMusicTracks.WORLD_MUSIC = new BackgroundMusicSelector(SoundEvents.MUSIC_GAME, WORLD_MUSIC_RANGE.get().get(0), WORLD_MUSIC_RANGE.get().get(1), false);
     }
 }

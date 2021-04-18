@@ -39,7 +39,7 @@ public class MusicGUI extends IngameGui {
     public void onRender(RenderGameOverlayEvent.Post event) {
         GameSettings gameSettings = this.mc.gameSettings;
         if(gameSettings.showDebugInfo || gameSettings.hideGUI || Config.HIDE_CONTROLLER.get()) return;
-        if(event.getType() != RenderGameOverlayEvent.ElementType.AIR || event.getMatrixStack() == null) return;
+        if(event.getType() != RenderGameOverlayEvent.ElementType.CROSSHAIRS || event.getMatrixStack() == null) return;
 
         String[] musicStrings = renderLogic();
         ArrayList<ITextComponent> stringList = new ArrayList<>();
