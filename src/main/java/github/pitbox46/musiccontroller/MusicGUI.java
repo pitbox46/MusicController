@@ -6,9 +6,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundSource;
 import net.minecraft.client.gui.IngameGui;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,7 +43,7 @@ public class MusicGUI extends IngameGui {
         if(gameSettings.showDebugInfo || gameSettings.hideGUI || Config.HIDE_CONTROLLER.get()) return;
         if(event.getType() != RenderGameOverlayEvent.ElementType.CROSSHAIRS || event.getMatrixStack() == null) return;
 
-        String[] musicStrings = renderLogic();
+        ResourceLocation[] musicStrings = renderLogic();
         ArrayList<ITextComponent> stringList = new ArrayList<>();
         TranslationTextComponent nowPlaying = new TranslationTextComponent("gui.musiccontroller.nowplaying");
 
@@ -50,8 +52,8 @@ public class MusicGUI extends IngameGui {
             else stringList.add(new TranslationTextComponent("gui.musiccontroller.musicon"));
         }
         else stringList.add(new TranslationTextComponent("gui.musiccontroller.musicoff"));
-        if(musicStrings[0] != null) stringList.add(nowPlaying.copyRaw().appendSibling(new TranslationTextComponent(musicStrings[0])));
-        if(musicStrings[1] != null) stringList.add(nowPlaying.copyRaw().appendSibling(new TranslationTextComponent(musicStrings[1])));
+        if(musicStrings[0] != null) stringList.add(nowPlaying.copyRaw().appendSibling(MusicInfo.getMusicInfo(musicStrings[0]).getDisplayText()));
+        if(musicStrings[1] != null) stringList.add(nowPlaying.copyRaw().appendSibling(MusicInfo.getMusicInfo(musicStrings[1]).getDisplayText()));
 
         int y = 5;
         for(ITextComponent text: stringList) {
@@ -67,12 +69,12 @@ public class MusicGUI extends IngameGui {
         GameSettings gameSettings = this.mc.gameSettings;
         if(!gameSettings.showDebugInfo || gameSettings.hideGUI) return;
 
-        String[] musicStrings = renderLogic();
+        ResourceLocation[] musicStrings = renderLogic();
         event.getRight().add(9,"");
         event.getRight().add(10,TextFormatting.UNDERLINE + "Music Controller");
         event.getRight().add(11,"Music: " + (isMusicOn ? (isPaused ? "Paused" : "On") : "Off"));
-        event.getRight().add(12,"Background Track: "+musicStrings[0]);
-        event.getRight().add(13,"Record Track: "+musicStrings[1]);
+        event.getRight().add(12,"Background Track: " + (musicStrings[0] == null ? "None" : musicStrings[0].toString()));
+        event.getRight().add(13,"Record Track: " + (musicStrings[1] == null ? "None" : musicStrings[1].toString()));
     }
 
     @SubscribeEvent
@@ -108,7 +110,7 @@ public class MusicGUI extends IngameGui {
         }
     }
 
-    private String[] renderLogic() {
+    private ResourceLocation[] renderLogic() {
         if (currentMusic == null || !super.mc.getSoundHandler().isPlaying(currentMusic.getFirst()))
             currentMusic = null;
 
@@ -127,8 +129,8 @@ public class MusicGUI extends IngameGui {
         if (closestRecord != null && (currentRecords.isEmpty() || distanceToPlayer(soundPosition(closestRecord)) > 64))
             closestRecord = null;
 
-        return new String[]{currentMusic == null ? null : currentMusic.getFirst().getSound().getSoundAsOggLocation().toString(),
-                            closestRecord == null ? null : closestRecord.getSound().getSoundAsOggLocation().toString()};
+        return new ResourceLocation[]{currentMusic == null ? null : currentMusic.getFirst().getSound().getSoundLocation(),
+                            closestRecord == null ? null : closestRecord.getSound().getSoundLocation()};
     }
 
     private static double distanceToPlayer(BlockPos pos) {

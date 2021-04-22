@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "github.pitbox46.musiccontroller.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "musiccontroller.refmap.json",
+  "mixins": [
+    "BackgroundMusicTracksMixin",
+    "LocatableSoundMixin",
+    "MusicTickerMixin"
+  ],
+  "minVersion": "0.8"
+}
