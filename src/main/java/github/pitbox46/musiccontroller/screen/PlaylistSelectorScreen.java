@@ -1,8 +1,12 @@
 package github.pitbox46.musiccontroller.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import github.pitbox46.musiccontroller.JsonHelper;
 import github.pitbox46.musiccontroller.MusicLists;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.DialogTexts;
+import net.minecraft.client.gui.LoadingGui;
+import net.minecraft.client.gui.screen.PackLoadingManager;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.SoundEvent;
@@ -13,10 +17,11 @@ import net.minecraftforge.resource.VanillaResourceType;
 
 public class PlaylistSelectorScreen extends Screen {
     private final Screen previousScreen;
+    private final PackLoadingManager packLoadingManager;
 
-
-    protected PlaylistSelectorScreen(Screen previousScreen, ITextComponent titleIn) {
+    protected PlaylistSelectorScreen(Screen previousScreen, PackLoadingManager packLoadingManager, ITextComponent titleIn) {
         super(titleIn);
+        this.packLoadingManager = packLoadingManager;
         this.previousScreen = previousScreen;
     }
 
@@ -36,10 +41,18 @@ public class PlaylistSelectorScreen extends Screen {
     }
 
     @Override
+    public void init(Minecraft minecraft, int width, int height) {
+        new JsonHelper(minecraft);
+        super.init(minecraft, width, height);
+    }
+
+    @Override
     public void closeScreen() {
-        this.minecraft.displayGuiScreen(this.previousScreen);
         assert minecraft != null;
+        packLoadingManager.func_238865_a_().filter(item -> item.func_230462_b_().getString().equals("MusicControllerPack.zip")).findFirst().ifPresent(PackLoadingManager.IPack::func_230471_h_);
+        this.packLoadingManager.func_241618_c_();
         ForgeHooksClient.refreshResources(minecraft, VanillaResourceType.SOUNDS);
+        this.minecraft.displayGuiScreen(this.previousScreen);
     }
 
     @Override

@@ -9,6 +9,7 @@ import net.minecraft.client.audio.Sound;
 import net.minecraft.client.audio.SoundList;
 import net.minecraft.client.gui.DialogTexts;
 import net.minecraft.client.gui.IGuiEventListener;
+import net.minecraft.client.gui.screen.PackLoadingManager;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
@@ -27,6 +28,7 @@ import java.util.*;
 
 public class PlaylistScreen extends Screen {
     private static final Logger LOGGER = LogManager.getLogger();
+    private JsonHelper jsonHelper;
     private CurrentSongs currentSongs;
     private AvaliableSongs avaliableSongs;
     private final Screen previousScreen;
@@ -52,6 +54,12 @@ public class PlaylistScreen extends Screen {
             this.closeScreen();
         }));
         super.init();
+    }
+
+    @Override
+    public void init(Minecraft minecraft, int width, int height) {
+        this.jsonHelper = new JsonHelper(minecraft);
+        super.init(minecraft, width, height);
     }
 
     @Override
@@ -128,7 +136,7 @@ public class PlaylistScreen extends Screen {
             super(mcIn, PlaylistScreen.this.width/2, PlaylistScreen.this.height, 32, PlaylistScreen.this.height - 65 + 4, 26);
             JsonHelper jsonHelper = new JsonHelper(mcIn);
             try {
-                Map<String, SoundList> map = jsonHelper.soundsReader(new ResourceLocation("minecraft", "sounds.json"));
+                Map<String, SoundList> map = jsonHelper.soundsReader("assets/minecraft/sounds.json");
                 SoundList soundList = map.get(playlist);
                 for(Sound sound: soundList.getSounds()) {
                     this.addWithKey(sound.getSoundLocation());
@@ -208,7 +216,7 @@ public class PlaylistScreen extends Screen {
                 double relY = mouseY - CurrentSongs.this.getRowTop(CurrentSongs.this.getEventListeners().indexOf(this));
                 if(relX >= CurrentSongs.this.getRowWidth() + BUTTONX && relX <= CurrentSongs.this.getRowWidth() + BUTTONX + BUTTONWIDTH
                         && relY >= BUTTONY && relY <= BUTTONY + BUTTONHEIGHT) {
-                    JsonHelper.removeSound(PlaylistScreen.this.playlist, sound);
+                    PlaylistScreen.this.jsonHelper.removeSound(PlaylistScreen.this.playlist, sound);
                     PlaylistScreen.this.avaliableSongs.addWithKey(sound);
                     PlaylistScreen.this.currentSongs.removeWithKey(sound);
                 }
@@ -224,7 +232,7 @@ public class PlaylistScreen extends Screen {
             setLeftPos(PlaylistScreen.this.width/2);
             JsonHelper jsonHelper = new JsonHelper(mcIn);
             try {
-                Map<String, SoundList> jsonSoundList = jsonHelper.soundsReader(new ResourceLocation("minecraft", "sounds.json"));
+                Map<String, SoundList> jsonSoundList = jsonHelper.soundsReader("assets/minecraft/sounds.json");
 
                 List<ResourceLocation> jsonSounds = new ArrayList<>();
                 jsonSoundList.get(playlist).getSounds().forEach(sound -> jsonSounds.add(sound.getSoundLocation()));
@@ -312,7 +320,7 @@ public class PlaylistScreen extends Screen {
                 double relY = mouseY - AvaliableSongs.this.getRowTop(AvaliableSongs.this.getEventListeners().indexOf(this));
                 if(relX >= AvaliableSongs.this.getRowWidth() + BUTTONX && relX <= AvaliableSongs.this.getRowWidth() + BUTTONX + BUTTONWIDTH
                         && relY >= BUTTONY && relY <= BUTTONY + BUTTONHEIGHT) {
-                    JsonHelper.addSound(PlaylistScreen.this.playlist, sound);
+                    PlaylistScreen.this.jsonHelper.addSound(PlaylistScreen.this.playlist, sound);
                     PlaylistScreen.this.currentSongs.addWithKey(sound);
                     PlaylistScreen.this.avaliableSongs.removeWithKey(sound);
                 }
