@@ -1,3 +1,6 @@
+May 1, 2021 pitbox46
+-Fixed crashing when server has mod (mod does not do anything on server)
+
 April 24, 2021 pitbox46
 -Fixed resources for compiled jars
 
