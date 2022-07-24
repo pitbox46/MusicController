@@ -1,39 +1,18 @@
 package github.pitbox46.musiccontroller;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MusicInfo {
-    private static final Map<ResourceLocation,MusicInfo> REGISTERED_TRACKS = new HashMap<>();
-    private final ResourceLocation resourceLocation;
-    private final Float volume;
-    private final Float pitch;
+public record MusicInfo(ResourceLocation resourceLocation, Float volume, Float pitch) {
+    private static final Map<ResourceLocation, MusicInfo> REGISTERED_TRACKS = new HashMap<>();
 
-    private MusicInfo(ResourceLocation resourceLocation, Float volume, Float pitch) {
-        this.resourceLocation = resourceLocation;
-        this.volume = volume;
-        this.pitch = pitch;
-    }
-
-    public ResourceLocation getResourceLocation() {
-        return resourceLocation;
-    }
-
-    public ITextComponent getDisplayText() {
-        return new TranslationTextComponent(resourceLocation.toString());
-    }
-
-    public Float getVolume() {
-        return volume;
-    }
-
-    public Float getPitch() {
-        return pitch;
+    public Component getDisplayText() {
+        return new TranslatableComponent(resourceLocation.toString());
     }
 
     /* Registry */
@@ -53,8 +32,8 @@ public class MusicInfo {
         return REGISTERED_TRACKS.get(resourceLocation);
     }
 
-    public static ITextComponent getDisplayText(ResourceLocation resourceLocation) {
+    public static Component getDisplayText(ResourceLocation resourceLocation) {
         MusicInfo musicInfo = REGISTERED_TRACKS.get(resourceLocation);
-        return musicInfo == null ? new StringTextComponent("Null") : new TranslationTextComponent(resourceLocation.toString());
+        return musicInfo==null ? new TextComponent("Null"):new TranslatableComponent(resourceLocation.toString());
     }
 }

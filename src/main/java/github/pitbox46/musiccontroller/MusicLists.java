@@ -1,8 +1,8 @@
 package github.pitbox46.musiccontroller;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +17,11 @@ public class MusicLists {
         MUSIC_TYPES.add(SoundEvents.MUSIC_END);
         MUSIC_TYPES.add(SoundEvents.MUSIC_GAME);
         MUSIC_TYPES.add(SoundEvents.MUSIC_MENU);
-        MUSIC_TYPES.add(SoundEvents.MUSIC_NETHER_BASALT_DELTAS);
-        MUSIC_TYPES.add(SoundEvents.MUSIC_NETHER_CRIMSON_FOREST);
-        MUSIC_TYPES.add(SoundEvents.MUSIC_NETHER_NETHER_WASTES);
-        MUSIC_TYPES.add(SoundEvents.MUSIC_NETHER_SOUL_SAND_VALLEY);
-        MUSIC_TYPES.add(SoundEvents.MUSIC_NETHER_WARPED_FOREST);
+        MUSIC_TYPES.add(SoundEvents.MUSIC_BIOME_BASALT_DELTAS);
+        MUSIC_TYPES.add(SoundEvents.MUSIC_BIOME_CRIMSON_FOREST);
+        MUSIC_TYPES.add(SoundEvents.MUSIC_BIOME_NETHER_WASTES);
+        MUSIC_TYPES.add(SoundEvents.MUSIC_BIOME_SOUL_SAND_VALLEY);
+        MUSIC_TYPES.add(SoundEvents.MUSIC_BIOME_WARPED_FOREST);
         MUSIC_TYPES.add(SoundEvents.MUSIC_UNDER_WATER);
 
         MusicInfo.registerTrack(new ResourceLocation("minecraft","music/menu/menu1"));
