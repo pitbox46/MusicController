@@ -26,8 +26,7 @@ import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class MusicGUI extends IngameGui {
-    private boolean isMusicOn = true;
-    private boolean isPaused = false;
+    private MusicState musicState;
     private Pair<ISound, SoundSource> currentMusic;
     private Map<BlockPos, ISound> currentRecords = new HashMap<>();
     private ISound closestRecord;
@@ -47,8 +46,8 @@ public class MusicGUI extends IngameGui {
         ArrayList<ITextComponent> stringList = new ArrayList<>();
         TranslationTextComponent nowPlaying = new TranslationTextComponent("gui.musiccontroller.nowplaying");
 
-        if(isMusicOn) {
-            if(isPaused) stringList.add(new TranslationTextComponent("gui.musiccontroller.musicpaused"));
+        if(musicState != MusicState.OFF) {
+            if(musicState == MusicState.PAUSED) stringList.add(new TranslationTextComponent("gui.musiccontroller.musicpaused"));
             else stringList.add(new TranslationTextComponent("gui.musiccontroller.musicon"));
         }
         else stringList.add(new TranslationTextComponent("gui.musiccontroller.musicoff"));
@@ -72,7 +71,7 @@ public class MusicGUI extends IngameGui {
         ResourceLocation[] musicStrings = renderLogic();
         event.getRight().add(9,"");
         event.getRight().add(10,TextFormatting.UNDERLINE + "Music Controller");
-        event.getRight().add(11,"Music: " + (isMusicOn ? (isPaused ? "Paused" : "On") : "Off"));
+        event.getRight().add(11,"Music: " + musicState.name());
         event.getRight().add(12,"Background Track: " + (musicStrings[0] == null ? "None" : musicStrings[0].toString()));
         event.getRight().add(13,"Record Track: " + (musicStrings[1] == null ? "None" : musicStrings[1].toString()));
     }
@@ -80,7 +79,7 @@ public class MusicGUI extends IngameGui {
     @SubscribeEvent
     public void onPlaySound(SoundEvent.SoundSourceEvent event) {
         if(event.getSound().getCategory().equals(SoundCategory.MUSIC)) {
-            if(!isMusicOn) mc.getSoundHandler().stop(event.getSound());
+            if(musicState != MusicState.ON) mc.getSoundHandler().stop(event.getSound());
             else currentMusic = new Pair<>(event.getSound(), event.getSource());
         }
         if(event.getSound().getCategory().equals(SoundCategory.RECORDS)) {
@@ -90,23 +89,33 @@ public class MusicGUI extends IngameGui {
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        if(MusicController.nextTrack.isPressed() && this.isMusicOn) {
-            if(this.isPaused){
+        if(MusicController.nextTrack.isPressed() && this.musicState != MusicState.OFF) {
+            if(this.musicState == MusicState.PAUSED){
                 currentMusic.getSecond().resume();
-                this.isPaused = false;
+                this.musicState = MusicState.ON;
             }
             mc.getMusicTicker().stop();
             mc.getMusicTicker().selectRandomBackgroundMusic(mc.getBackgroundMusicSelector());
         }
-        if(MusicController.togglePauseTrack.isPressed() && currentMusic != null && isMusicOn){
-            this.isPaused = !this.isPaused;
-            if (this.isPaused) currentMusic.getSecond().pause();
-            else currentMusic.getSecond().resume();
+        if(MusicController.togglePauseTrack.isPressed() && currentMusic != null && musicState != MusicState.OFF){
+            if (this.musicState != MusicState.PAUSED) {
+                currentMusic.getSecond().pause();
+                this.musicState = MusicState.PAUSED;
+            }
+            else {
+                currentMusic.getSecond().resume();
+                this.musicState = MusicState.ON;
+            }
         }
         if(MusicController.toggleMusic.isPressed()) {
-            this.isMusicOn = !this.isMusicOn;
-            if (this.isMusicOn) mc.getMusicTicker().selectRandomBackgroundMusic(mc.getBackgroundMusicSelector());
-            else mc.getMusicTicker().stop();
+            if (this.musicState != MusicState.ON) {
+                mc.getMusicTicker().selectRandomBackgroundMusic(mc.getBackgroundMusicSelector());
+                this.musicState = MusicState.ON;
+            }
+            else {
+                mc.getMusicTicker().stop();
+                this.musicState = MusicState.OFF;
+            }
         }
     }
 
@@ -139,5 +148,11 @@ public class MusicGUI extends IngameGui {
 
     private static BlockPos soundPosition(ISound sound) {
         return new BlockPos(sound.getX(), sound.getY(), sound.getZ());
+    }
+
+    public enum MusicState {
+        OFF,
+        ON,
+        PAUSED
     }
 }

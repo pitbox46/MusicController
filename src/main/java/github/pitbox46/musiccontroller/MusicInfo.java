@@ -5,20 +5,17 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MusicInfo {
     private static final Map<ResourceLocation,MusicInfo> REGISTERED_TRACKS = new HashMap<>();
     private final ResourceLocation resourceLocation;
-    private final String displayText;
     private final Float volume;
     private final Float pitch;
 
-    private MusicInfo(ResourceLocation resourceLocation, String displayText, Float volume, Float pitch) {
+    private MusicInfo(ResourceLocation resourceLocation, Float volume, Float pitch) {
         this.resourceLocation = resourceLocation;
-        this.displayText = displayText;
         this.volume = volume;
         this.pitch = pitch;
     }
@@ -40,12 +37,12 @@ public class MusicInfo {
     }
 
     /* Registry */
-    public static void registerTrack(ResourceLocation resourceLocation, String displayText, Float volume, Float pitch) {
-        REGISTERED_TRACKS.put(resourceLocation, new MusicInfo(resourceLocation, displayText, volume, pitch));
+    public static void registerTrack(ResourceLocation resourceLocation, Float volume, Float pitch) {
+        REGISTERED_TRACKS.put(resourceLocation, new MusicInfo(resourceLocation, volume, pitch));
     }
 
-    public static void registerTrack(ResourceLocation resourceLocation, String displayText) {
-        REGISTERED_TRACKS.put(resourceLocation, new MusicInfo(resourceLocation, displayText, 1F, 1F));
+    public static void registerTrack(ResourceLocation resourceLocation) {
+        registerTrack(resourceLocation, 1F, 1F);
     }
 
     public static Map<ResourceLocation, MusicInfo> getRegisteredTracks() {

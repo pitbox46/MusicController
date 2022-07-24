@@ -1,12 +1,10 @@
 package github.pitbox46.musiccontroller;
 
-import github.pitbox46.musiccontroller.screen.ScreenEvents;
+
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.client.audio.BackgroundMusicTracks;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.SoundEvents;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -15,8 +13,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.javafmlmod.FMLModContainer;
-import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -42,7 +38,6 @@ public class MusicController {
         MusicLists.init();
 
         MinecraftForge.EVENT_BUS.register(new MusicGUI());
-        MinecraftForge.EVENT_BUS.register(new ScreenEvents());
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
 
         BackgroundMusicTracks.MAIN_MENU_MUSIC = new BackgroundMusicSelector(SoundEvents.MUSIC_MENU, Config.MENU_MUSIC_RANGE.get().get(0), Config.MENU_MUSIC_RANGE.get().get(1), true);
